@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photography Portfolio</title>
+    <style>
+        /* 🎨 漆黒の美術館をイメージしたベース */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #060608; /* 静寂の黒 */
+            color: #ffffff;
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-sizing: border-box;
+            /* スクロールを有効にする（overflow: hiddenを削除） */
+        }
+
+        /* 戻るボタン（左上の上品な矢印） */
+        .back-to-hub {
+            position: absolute;
+            top: 2.5rem;
+            left: 3rem;
+            color: #555;
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            transition: color 0.3s;
+            text-transform: uppercase;
+            z-index: 20;
+        }
+        .back-to-hub:hover { color: #fff; }
+
+        /* 🏛️ 上部：ヘッダー */
+        header {
+            text-align: center;
+            padding-top: 2.5rem;
+            z-index: 10;
+        }
+
+        header h1 {
+            font-size: 1.4rem;
+            font-weight: 300;
+            letter-spacing: 10px;
+            margin: 0 0 1.2rem 0;
+            text-transform: uppercase;
+            color: #eee;
+        }
+
+        /* 🎛️ カテゴリ切り替えスイッチ */
+        .filter-container {
+            display: flex;
+            gap: 1rem;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 0.3rem 1.2rem;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .filter-btn {
+            background: none;
+            border: none;
+            color: #555;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            padding: 0.4rem 0.8rem;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            color: #ffffff;
+        }
+
+        /* 🏛️ 1. メイン展示ステージ（ファーストビュー） */
+        .exhibition-space {
+            height: 80vh; /* 画面に収まる丁度いいサイズ */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 1000px;
+            position: relative;
+            padding: 2rem;
+            box-sizing: border-box;
+        }
+
+        .photo-frame {
+            width: 100%;
+            height: 55vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .photo-frame img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
+            opacity: 0;
+            transform: scale(0.98);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .photo-frame img.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* 美術館風キャプション */
+        .caption-plate {
+            margin-top: 2rem;
+            text-align: center;
+            min-height: 45px;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+        
+        .caption-plate.active {
+            opacity: 1;
+        }
+
+        .photo-title {
+            font-size: 0.95rem;
+            letter-spacing: 2px;
+            color: #fff;
+            margin-bottom: 0.4rem;
+        }
+
+        .photo-meta {
+            font-size: 0.75rem;
+            letter-spacing: 1.5px;
+            color: #666;
+        }
+
+        /* 👇スクロールを促す下向き矢印 */
+        .scroll-hint {
+            color: #444;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+            animation: arrowBounce 2s infinite;
+        }
+        @keyframes arrowBounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-6px); }
+            60% { transform: translateY(-3px); }
+        }
+
+        /* 🏛️ 2. 下部：一覧（インデックス）エリア */
+        .list-section-title {
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            color: #444;
+            text-transform: uppercase;
+            margin: 4rem 0 2rem 0;
+            border-bottom: 1px solid #15151a;
+            padding-bottom: 0.5rem;
+            width: 80%;
+            max-width: 1200px;
+            text-align: left;
+        }
+
+        .gallery-grid {
+            width: 100%;
+            max-width: 1200px;
+            padding: 0 2rem 8rem 2rem;
+            box-sizing: border-box;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2.5rem; /* 品のある余白 */
+        }
+
+        /* グリッド内の写真ラッパー */
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 6px; /* 四角アイコンに合わせて少し丸みを持たせる */
+            background-color: #111;
+            aspect-ratio: 3 / 2;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* ✨ 写真がアピールするような、滑らかで高級感のある拡大アニメーション設定 */
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), filter 0.6s ease;
+            filter: brightness(0.9); /* 通常時は少し落ち着かせる */
+        }
+
+        /* 拡大ホバー（アピール効果） */
+        .gallery-item:hover img {
+            transform: scale(1.06); /* 少しだけ拡大 */
+            filter: brightness(1.1); /* パッと明るくなってアピール */
+        }
+
+        /* 🔍 3. 拡大大画面（ライトボックス） */
+        .lightbox {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(4, 4, 5, 0.97); /* ほぼ完全な闇 */
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            padding: 2rem;
+            box-sizing: border-box;
+        }
+
+        .lightbox.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .lightbox img {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.9);
+            transform: scale(0.96);
+            transition: transform 0.4s ease;
+        }
+
+        .lightbox.active img {
+            transform: scale(1);
+        }
+
+        /* ❌ 右上の閉じるボタン */
+        .close-btn {
+            position: absolute;
+            top: 2.5rem;
+            right: 3rem;
+            background: none;
+            border: none;
+            color: #666;
+            font-size: 2rem;
+            font-weight: 200;
+            cursor: pointer;
+            transition: color 0.3s, transform 0.3s;
+            z-index: 110;
+        }
+        .close-btn:hover {
+            color: #fff;
+            transform: rotate(90deg); /* ホバーすると綺麗に回転 */
+        }
+
+        /* 📱 スマホ対応 */
+        @media (max-width: 768px) {
+            .back-to-hub { top: 1.5rem; left: 1.5rem; }
+            .close-btn { top: 1.5rem; right: 1.5rem; }
+            header { padding-top: 4rem; }
+            .exhibition-space { height: auto; padding: 1rem; }
+            .photo-frame { height: 40vh; }
+            .gallery-grid { gap: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- コックピットへ戻る -->
+    <a href="../" class="back-to-hub">&#10094; Hub</a>
+
+    <header>
+        <h1>Photography</h1>
+        <div class="filter-container">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="color">Color</button>
+            <button class="filter-btn" data-filter="monochrome">Monochrome</button>
+        </div>
+    </header>
+
+    <!-- 🏛️ 1. メイン展示スペース（ランダム表示枠） -->
+    <div class="exhibition-space">
+        <div class="photo-frame">
+            <img id="mainExhibImg" src="" alt="Main Exhibition">
+        </div>
+        <div class="caption-plate" id="mainCaptionPlate">
+            <div class="photo-title" id="mainPhotoTitle"></div>
+            <div class="photo-meta" id="mainPhotoMeta"></div>
+        </div>
+    </div>
+
+    <!-- スクロールを促すサイン -->
+    <div class="scroll-hint">↓ SCROLL TO INDEX</div>
+
+    <div class="list-section-title">Index / Collection</div>
+
+    <!-- 🏛️ 2. 一覧（インデックス）ギャラリーエリア -->
+    <div class="gallery-grid" id="galleryGrid">
+        <!-- 💡 あなたの写真データをここにストックします（ここを基準にランダム抽選されます） -->
+        <div class="gallery-item" data-category="color" data-title="Untitled // Light" data-meta="2025 / Shinjuku, Tokyo / Canon EOS 70D">
+            <img src="ロングビーチアイコン.jpg" alt="作品1">
+        </div>
+        
+        <div class="gallery-item" data-category="color" data-title="Silence" data-meta="2024 / Kyoto / Monochrome">
+            <img src="木曽川アイコン.jpg" alt="作品2">
+        </div>
+        
+        <div class="gallery-item" data-category="color" data-title="Aquarium Life" data-meta="2026 / Local Studio">
+            <img src="バイクアイコン.jpg" alt="作品3">
+        </div>
+        
+        <div class="gallery-item" data-category="color" data-title="Shadows" data-meta="2024 / Osaka / 40mm Lens">
+            <img src="デジタル地球アイコン.jpg" alt="作品4">
+        </div>
+    </div>
+
+    <!-- 🔍 3. 拡大大画面（ライトボックス） -->
+    <div class="lightbox" id="lightbox">
+        <button class="close-btn" id="closeBtn">&times;</button>
+        <img src="" alt="Enlarged Photo">
+    </div>
+
+    <footer>
+        &copy; YUUKI INOUE. ALL RIGHTS RESERVED.
+    </footer>
+
+    <script>
+        // ① 全写真データの取得
+        const galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
+        
+        // メインエリア用の要素
+        const mainImg = document.getElementById('mainExhibImg');
+        const mainTitle = document.getElementById('mainPhotoTitle');
+        const mainMeta = document.getElementById('mainPhotoMeta');
+        const mainCaption = document.getElementById('mainCaptionPlate');
+
+        // 🎲 1. メイン部分のランダム選出システム
+        function setRandomMainPhoto(itemsList) {
+            if (!itemsList || itemsList.length === 0) {
+                mainImg.classList.remove('active');
+                mainCaption.classList.remove('active');
+                return;
+            }
+            
+            // 一旦フェードアウトさせる（滑らかな切り替えのため）
+            mainImg.classList.remove('active');
+            mainCaption.classList.remove('active');
+
+            // 💡 渡されたリスト（All、Color、Monoのいずれか）からランダムに1つ選ぶ
+            const randomIndex = Math.floor(Math.random() * itemsList.length);
+            const selectedItem = itemsList[randomIndex];
+            
+            const src = selectedItem.querySelector('img').getAttribute('src');
+            const title = selectedItem.getAttribute('data-title') || "";
+            const meta = selectedItem.getAttribute('data-meta') || "";
+
+            // データのセット
+            mainImg.setAttribute('src', src);
+            mainTitle.textContent = title;
+            mainMeta.textContent = meta; // 👈 変数名を統一してバグを完全に修正！
+
+            // アニメーション付きで再表示
+            setTimeout(() => {
+                mainImg.classList.add('active');
+                mainCaption.classList.add('active');
+            }, 200);
+        }
+
+        // 🎛️ 2. カテゴリ切り替え（フィルター）システム
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // ボタンの活性化状態の切り替え
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                const filterValue = button.getAttribute('data-filter');
+                let filteredItems = [];
+
+                // 下部の一覧（インデックス）の表示・非表示切り替え
+                galleryItems.forEach(item => {
+                    const itemCategory = item.getAttribute('data-category');
+                    
+                    if (filterValue === 'all' || itemCategory === filterValue) {
+                        item.style.display = 'block';
+                        filteredItems.push(item); // 👈 選択されたカテゴリの写真だけをリストに溜める
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+
+                // 🎲 選択されたカテゴリのリストの中から、さらにランダムでメインを選び直す！
+                setRandomMainPhoto(filteredItems);
+            });
+        });
+
+        // 🔍 3. 拡大大画面（ライトボックス）システム
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = lightbox.querySelector('img');
+        const closeBtn = document.getElementById('closeBtn');
+
+        // 下部の一覧写真をクリックした時
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const src = item.querySelector('img').getAttribute('src');
+                lightboxImg.setAttribute('src', src);
+                lightbox.classList.add('active');
+            });
+        });
+
+        // 閉じる処理（×ボタン、または背景の闇をクリック）
+        closeBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // クリックイベントの重複バグを防ぐ
+            lightbox.classList.remove('active');
+        });
+        lightbox.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+        });
+
+        // 🚀 初回起動（ページを開いた時はすべての写真からランダムに1枚選ぶ）
+        setRandomMainPhoto(galleryItems);
+    </script>
+</body>
+</html>
