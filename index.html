@@ -152,6 +152,7 @@
         <div id="dropdown-menu" class="dropdown-content">
         <!--項目1：背景変更（裏側のinputを起動）-->
         <button onclick="triggerUpload()">背景画像変更</button>
+        <button onclick="resetToDefaultBg()">初期背景に戻す</button>
         <!--項目2：保存して閉じる-->
         <button onclick="saveAndClose()">保存＆終了</button>
         </div>
@@ -218,10 +219,19 @@
             reader.readAsDataURL(file);
         });
 
-        /*ページを開いた瞬間に、過去に保存された背景画像があれば自動で適用する処理*/
+        /* 💡 リセット用の関数を追加 */
+        function resetToDefaultBg() {
+            localStorage.removeItem('myCockpitBg'); /* 保存された記憶を削除 */
+            document.body.style.backgroundImage = 'url("背景.jpg")'; /* デフォルト背景を表示 */
+            toggleMenu();
+        }
+
+        /* 💡 自動読み込みの判定を変更 */
         window.addEventListener('DOMContentLoaded', () => {
             const savedBg = localStorage.getItem('myCockpitBg');
-            if (savedBg) {
+            /* 変更前: if (savedBg) { ... } */
+            /* 変更後: アップロードされた画像データ（data:image）の時だけ適用 */
+            if (savedBg && savedBg.startsWith('data:image')) {
                 document.body.style.backgroundImage = `url('${savedBg}')`;
             }
         });
