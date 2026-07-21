@@ -246,8 +246,25 @@
         .prev-btn { left: -70px; }
         .next-btn { right: -70px; }
 
-        /*スマホ対応：ボタンを内側に移動*/
+        /*スマホ対応：レイアウトとボタンを調整*/
         @media (max-width: 768px) {
+            /* 1. 上部のプロフィールエリアを縦並びにして整える */
+            .header-profile {
+                position: relative; /* 画面上に固定せず、スクロール領域に移動 */
+                flex-direction: column-reverse; /* 右側の顔写真を上に、自己紹介を下に */
+                align-items: center;
+                text-align: center;
+                padding: 1.5rem 1rem;
+                gap: 1.2rem;
+            }
+
+            .profile-bio {
+                text-align: center; /* 文頭を中央揃えにして読みやすく */
+                max-width: 100%;
+                font-size: 0.8rem;
+            }
+
+            /* 2. スライダーとボタンの調整（既存の指定） */
             .slider-container { width: 85%; }
             .prev-btn { left: 10px; }
             .next-btn { right: 10px; }
