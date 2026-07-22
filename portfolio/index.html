@@ -5,126 +5,97 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio Hub</title>
     <style>
-        /*ヘッダープロフィール全体のレイアウト*/
+        /* ヘッダープロフィール全体のレイアウト */
         .header-profile {
-            position: absolute;
+            position: fixed; /* 画面の一番上にしっかり固定 */
             top: 0;
             left: 0;
-            /*画面の端から端まで横いっぱいに広げる*/
             width: 100%;
-            /*paddingによるはみ出しを防ぐ魔法のコード*/
             box-sizing: border-box;
-            z-index: 10;
-            /*横一列のレイアウト（左・中央・右に分散させる）*/
+            z-index: 100;
             display: flex;
-            /*上揃え*/
-            align-items: flex-start;
-            /*要素を両端と中央に綺麗に分ける*/
+            align-items: center;
             justify-content: space-between; 
-            gap: 3rem;
-            /*デザインの調整：四角くして、下側にだけうっすら線を引く*/
-            background: rgba(255, 255, 255, 0.03);
-            /*上下の幅と、左側の余白を調整*/
-            padding: 1.2rem 3rem;
-            /*下の境界線*/
+            gap: 2rem;
+            background: rgba(18, 18, 20, 0.85); /* スマホでも背景が見やすい暗めガラス */
+            padding: 1rem 2rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-            
-            /*カプセル型のオシャレな形状*/
-            /*border-radius: 50px;*/
-            /*border: 1px solid rgba(255, 255, 255, 0.1);*/
-            
-            /*すりガラス効果*/
-            backdrop-filter: blur(10rem);
+            backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
         }
 
-        /*左側：経歴エリア*/
+        /* 左側：経歴エリア */
         .profile-bio {
-            font-size: 0.76rem;
+            font-size: 0.78rem;
             color: #ccc;
             letter-spacing: 0.5px;
             line-height: 1.5;
-            /*中央のエリアを広く持たせる*/
             flex-grow: 1; 
-            /*広がりすぎない丁度いい制限*/
             max-width: 600px;
-            /*左詰めで読みやすく*/
             text-align: left;
-            margin-top: 0.2rem;
         }
 
-        /*右側：顔アイコンと名前*/
+        /* 右側：顔アイコンと名前 */
         .profile-right {
             display: flex;
             flex-direction: column;
-            /*中央揃えにしてアイコンと名前の軸を統一*/
             align-items: center;
-            /*アイコンと名前の隙間*/
-            gap: 0.8rem;
-            /*横幅を縮ませない*/
+            gap: 0.5rem;
             flex-shrink: 0;
         }
 
         .profile-img {
-            width: 70px;
-            height: 70px;
+            width: 60px;
+            height: 60px;
             border-radius: 12px;
             object-fit: cover;
             border: 2px solid rgba(255, 255, 255, 0.6);
-            flex-shrink: 0;
-            /*四角の輪郭を際立たせるうっすら影*/
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); 
         }
 
         .profile-name {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             font-weight: bold;
             letter-spacing: 2px;
             color: #ffffff;
-            /*名前が途中で改行されるのを防ぐ*/
             white-space: nowrap;
         }
 
-
-
-        /*全体のデザイン調整*/
+        /* 全体のデザイン調整 */
         body {
             margin: 0;
-            padding: 0;
+            padding: 140px 0 40px 0; /* ヘッダーに被らないよう上に大きめの余白を作る */
             font-family: 'Helvetica Neue', Arial, sans-serif;
-            /*高級感のある黒*/
-            background-color: #ffffffff;
+            background-color: #121212;
             color: #ffffff;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            /*背景の切り替えをスムーズにするアニメーション*/
+            box-sizing: border-box;
             background-size: cover;
             background-position: center;
             transition: background-image 0.8s ease-in-out; 
             position: relative;
         }
 
-        /*背景が明るいときでも文字が見えるように暗いマスクをかける*/
+        /* 背景が明るいときでも文字が見えるように暗いマスクをかける */
         body::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            /*75%の黒マスク*/
-            background: rgba(15, 15, 17, 0.4);
+            background: rgba(15, 15, 17, 0.5);
             z-index: 1;
         }
 
         h1, .subtitle, .slider-container {
             position: relative;
-            /*マスクより上にする*/
             z-index: 2;
         }
 
         h1 {
-            font-size: 2.2rem;
+            font-size: 2rem;
             margin-bottom: 0.5rem;
             letter-spacing: 4px;
             text-align: center;
@@ -132,47 +103,33 @@
 
         .subtitle {
             color: #ccc;
-            margin-bottom: 3rem;
-            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            font-size: 0.85rem;
             letter-spacing: 2px;
             text-align: center;
         }
 
-        /*スライダー全体のコンテナ */
+        /* スライダーコンテナ */
         .slider-container {
             position: relative;
-            width: 100%;
-            max-width: 500px;
-            height: 380px;
+            width: 90%;
+            max-width: 450px;
+            height: 320px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        /*カードを横に並べるためのラッパー*/
-        .slider-wrapper {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            /*スライドのアニメーション*/
-            transition: transform 0.5s ease-in-out;
-        }
 
-        /*カード単体のデザイン（切り離して重ねる*/
         .card {
             position: absolute;
             width: 100%;
             height: 100%;
-            /*背景が見えるよう少し透明に*/
             background: rgba(26, 26, 30, 0.85); 
             border: 1px solid #3a3a40;
-
-            /*ぼかし少なめの設定（数値を大きくするとぼかしが強くなる*/
-            backdrop-filter: blur(6px); 
-            /*Safari対策*/
-            -webkit-backdrop-filter: blur(6px);
-
+            backdrop-filter: blur(8px); 
+            -webkit-backdrop-filter: blur(8px);
             border-radius: 16px;
-            padding: 3rem 2rem;
+            padding: 2rem 1.5rem;
             text-align: center;
             text-decoration: none;
             color: #ffffff;
@@ -181,129 +138,113 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            
-            /*初期状態は非表示（透明）にする*/
             opacity: 0;
             pointer-events: none;
             transform: scale(0.95);
-            transition: all 0.6s ease-in-out;
+            transition: all 0.5s ease-in-out;
         }
 
-        /*現在アクティブなカードだけを表示する*/
         .card.active {
             opacity: 1;
-            pointer-events: auto;
+            pointer-events: auto !important;
             transform: scale(1);
-        }
-
-        /*ホバーしたときに少しカードを明るくする演出*/ 
-        .card:hover {
-            background: rgba(255,255,250,0.1);
-            border-color: rgba(255,255,255,0.4);
+            z-index: 5;
         }
 
         .card h2 {
             font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            letter-spacing: 1px;
-            /*文字の視認性を上げる影*/
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
             text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
 
         .card p {
-            color: #888;
-            font-size: 1rem;
+            color: #ccc;
+            font-size: 0.95rem;
             line-height: 1.6;
             margin: 0;
-            max-width: 80%;
-            /*文字の視認性を上げる影*/
-            text-shadow:0 2px 4px rgba(0,0,0,0.5);
+            max-width: 90%;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
 
-        /*両サイドのスライドボタン*/
+        /* スライドボタン */
         .slide-btn {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.4);
             color: white;
-            font-size: 2rem;
-            width: 50px;
-            height: 50px;
+            font-size: 1.5rem;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             cursor: pointer;
             transition: all 0.3s ease;
-            z-index: 10;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .slide-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: rgba(255, 255, 255, 0.5);
-        }
+        .prev-btn { left: -60px; }
+        .next-btn { right: -60px; }
 
-         /*コンテナの外側に配置*/
-        .prev-btn { left: -70px; }
-        .next-btn { right: -70px; }
-
-        /*スマホ対応：レイアウトとボタンを調整*/
+        /* 📱 スマホ対応（画面幅768px以下） */
         @media (max-width: 768px) {
-            /* 1. 上部のプロフィールエリアを縦並びにして整える */
+            body {
+                padding-top: 20px; /* スマホではスクロール前提にする */
+                justify-content: flex-start;
+            }
+
             .header-profile {
-                position: relative; /* 画面上に固定せず、スクロール領域に移動 */
-                flex-direction: column-reverse; /* 右側の顔写真を上に、自己紹介を下に */
-                align-items: center;
+                position: relative; /* スマホでは一番上に普通に並べる */
+                flex-direction: column-reverse; /* アイコンを上、文章を下に */
                 text-align: center;
                 padding: 1.5rem 1rem;
-                gap: 1.2rem;
+                margin-bottom: 2rem;
             }
 
             .profile-bio {
-                text-align: center; /* 文頭を中央揃えにして読みやすく */
-                max-width: 100%;
+                text-align: center;
                 font-size: 0.8rem;
             }
 
-            /* 2. スライダーとボタンの調整（既存の指定） */
-            .slider-container { width: 85%; }
-            .prev-btn { left: 10px; }
-            .next-btn { right: 10px; }
-            .slide-btn { width: 40px; height: 40px; font-size: 1.5rem; }
+            .prev-btn { left: -10px; }
+            .next-btn { right: -10px; }
         }
     </style>
 </head>
 <body>
-    <!--プロフィールエリア-->
+
+    <!-- プロフィールエリア -->
     <div class="header-profile">
-        <!--左端：経歴-->
         <div class="profile-bio">
             某上場企業にてFSEとして勤務。<br>
             大学時代はシステムデザイン工学を専攻し知能情報処理研究室にてAIを研究。<br>
-            高校時代より写真活動を続けており、最近ではアクアリウムも始めた自然好き。<br>
-            <!--また過去にバスケットボールU15代表経験や、フィットネスクラブでのトレーナー実績もあり。<br>--><br>
+            高校時代より写真活動を続けており、最近ではアクアリウムも始めた自然好き。<br><br>
             このサイトではこれまでに撮影してきた写真作品と、<br>
             ITシステムやアプリの開発実績の2つの世界を公開しています。<br>
             詳しい経歴はそれぞれのポートフォリオ内をご覧ください。
         </div>
         
-        <!--右端：顔写真-->
         <div class="profile-right">
             <img src="face.jpg" alt="Profile Image" class="profile-img">
             <div class="profile-name">井上 優希</div>
         </div>
     </div>
 
-<!--題名-->>
+    <!-- 題名 -->
     <h1>PORTFOLIO</h1>
     <div class="subtitle">Select the portfolio you want to view</div>
 
     <div class="slider-container">
-        <!--スライドボタン-->
+        <!-- スライドボタン -->
         <button class="slide-btn prev-btn" id="prevBtn">&#10094;</button>
         <button class="slide-btn next-btn" id="nextBtn">&#10095;</button>
 
-        <!-- 📷 写真ポートフォリオ (最初から表示するので active をつけておく) -->
-        <a href="photo\index.html" id="photoCard" class="card active">
+        <!-- 📷 写真ポートフォリオ （スラッシュを「/」に修正） -->
+        <a href="photo/index.html" id="photoCard" class="card active">
             <h2>PHOTO</h2>
             <p>学生時代から続く写真作品のポートフォリオ。</p>
         </a>
@@ -315,8 +256,7 @@
         </a>
     </div>
 
-
-    <!--スライダーを動かすためのJavaScript-->
+    <!-- JavaScript -->
     <script>
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
@@ -324,17 +264,12 @@
         
         let currentIndex = 0;
 
-        /*それぞれのカードに対応する背景画像のURL*/
         const backgrounds = [
-            /*写真用の背景*/
             "url('photo.jpg')",
-            /* IT用の背景 */
             "url('IT.jpg')"
         ];
 
-        // 画面を更新する関数
         function updateDisplay() {
-            // 1. カードの切り替え（activeクラスの付け替え）
             cards.forEach((card, index) => {
                 if (index === currentIndex) {
                     card.classList.add('active');
@@ -342,26 +277,25 @@
                     card.classList.remove('active');
                 }
             });
-
-            // 2. 背景画像の切り替え
             document.body.style.backgroundImage = backgrounds[currentIndex];
         }
 
-        // 初期状態の背景をセット
         updateDisplay();
 
-        // 次へボタン
         nextBtn.addEventListener('click', () => {
             currentIndex = (currentIndex + 1) % cards.length;
             updateDisplay();
         });
 
-        // 前へボタン
         prevBtn.addEventListener('click', () => {
             currentIndex = (currentIndex - 1 + cards.length) % cards.length;
             updateDisplay();
         });
-    </script>
 
+        // 強制ジャンプ処理（干渉対策）
+        document.getElementById('photoCard').addEventListener('click', () => {
+            window.location.href = 'photo/index.html';
+        });
+    </script>
 </body>
 </html>
