@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio Hub</title>
     <style>
-        /* 画面全体の基本スタイル */
+        /* 全体の基本設定 */
         body {
             margin: 0;
             padding: 0;
@@ -15,7 +15,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start; /* 上から順番にバランスよく配置 */
+            justify-content: center;
             min-height: 100vh;
             box-sizing: border-box;
             background-size: cover;
@@ -24,7 +24,7 @@
             position: relative;
         }
 
-        /* 背景マスク */
+        /* 暗めマスク */
         body::before {
             content: '';
             position: absolute;
@@ -33,16 +33,17 @@
             z-index: 1;
         }
 
-        /* PCヘッダー（最上部にピタッと固定） */
+        /* 💻 PC版ヘッダー：画面の一番上にピッタリ固定 */
         .header-profile {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             box-sizing: border-box;
-            z-index: 10;
+            z-index: 100;
             display: flex;
-            align-items: center;
+            flex-direction: row; /* 横並び固定 */
+            align-items: flex-start;
             justify-content: space-between; 
             gap: 2rem;
             background: rgba(18, 18, 20, 0.85);
@@ -52,7 +53,7 @@
             -webkit-backdrop-filter: blur(10px);
         }
 
-        /* 左側：経歴エリア */
+        /* PC版：経歴（左側） */
         .profile-bio {
             font-size: 0.76rem;
             color: #ccc;
@@ -61,9 +62,10 @@
             flex-grow: 1; 
             max-width: 600px;
             text-align: left;
+            margin-top: 0.2rem;
         }
 
-        /* 右側：顔アイコンと名前 */
+        /* PC版：アイコンと名前（右側） */
         .profile-right {
             display: flex;
             flex-direction: column;
@@ -89,7 +91,7 @@
             white-space: nowrap;
         }
 
-        /* メインコンテンツ（タイトル・スライダー） */
+        /* タイトル・スライダー周り */
         h1, .subtitle, .slider-container {
             position: relative;
             z-index: 2;
@@ -97,7 +99,7 @@
 
         h1 {
             font-size: 2.2rem;
-            margin-top: 140px; /* ヘッダーの直下に収まるよう位置調整 */
+            margin-top: 80px; /* ヘッダーの高さ分だけ避ける */
             margin-bottom: 0.5rem;
             letter-spacing: 4px;
             text-align: center;
@@ -105,18 +107,17 @@
 
         .subtitle {
             color: #ccc;
-            margin-bottom: 2rem;
-            font-size: 0.85rem;
+            margin-bottom: 2.5rem;
+            font-size: 0.9rem;
             letter-spacing: 2px;
             text-align: center;
         }
 
-        /* スライダーコンテナ */
         .slider-container {
             position: relative;
-            width: 90%;
-            max-width: 450px;
-            height: 320px;
+            width: 100%;
+            max-width: 500px;
+            height: 350px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -128,10 +129,10 @@
             height: 100%;
             background: rgba(26, 26, 30, 0.85); 
             border: 1px solid #3a3a40;
-            backdrop-filter: blur(8px); 
-            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(6px); 
+            -webkit-backdrop-filter: blur(6px);
             border-radius: 16px;
-            padding: 2rem 1.5rem;
+            padding: 2.5rem 2rem;
             text-align: center;
             text-decoration: none;
             color: #ffffff;
@@ -156,30 +157,29 @@
         .card h2 {
             font-size: 1.8rem;
             margin-bottom: 1rem;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
 
         .card p {
-            color: #ccc;
+            color: #888;
             font-size: 0.95rem;
             line-height: 1.6;
             margin: 0;
-            max-width: 90%;
+            max-width: 85%;
             text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
 
-        /* スライドボタン */
         .slide-btn {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             color: white;
-            font-size: 1.5rem;
-            width: 45px;
-            height: 45px;
+            font-size: 2rem;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -189,19 +189,19 @@
             justify-content: center;
         }
 
-        .prev-btn { left: -60px; }
-        .next-btn { right: -60px; }
+        .prev-btn { left: -70px; }
+        .next-btn { right: -70px; }
 
-        /* 📱 スマホ対応：1画面にコンパクトに納める調整 */
+
+        /* 📱 スマホ専用スタイル（横幅768px以下のみ適用） */
         @media (max-width: 768px) {
             body {
-                padding: 10px;
                 justify-content: flex-start;
+                padding: 10px;
             }
 
             .header-profile {
-                position: relative;
-                top: 0;
+                position: relative; /* スマホではスクロール位置に置く */
                 flex-direction: column-reverse;
                 align-items: center;
                 padding: 0.8rem;
@@ -260,9 +260,8 @@
                 font-size: 0.75rem;
             }
 
-            .prev-btn { left: -8px; }
-            .next-btn { right: -8px; }
-            .slide-btn { width: 34px; height: 34px; font-size: 1rem; }
+            .prev-btn { left: -8px; width: 34px; height: 34px; font-size: 1rem; }
+            .next-btn { right: -8px; width: 34px; height: 34px; font-size: 1rem; }
         }
     </style>
 </head>
@@ -285,18 +284,16 @@
     <h1>PORTFOLIO</h1>
     <div class="subtitle">Select the portfolio you want to view</div>
 
+    <!-- スライダー -->
     <div class="slider-container">
-        <!-- スライドボタン -->
         <button class="slide-btn prev-btn" id="prevBtn">&#10094;</button>
         <button class="slide-btn next-btn" id="nextBtn">&#10095;</button>
 
-        <!-- 📷 写真ポートフォリオ -->
         <a href="photo/index.html" id="photoCard" class="card active">
             <h2>PHOTO</h2>
             <p>学生時代から続く写真作品のポートフォリオ。</p>
         </a>
 
-        <!-- 💻 ITポートフォリオ -->
         <a href="../it/" class="card">
             <h2>IT</h2>
             <p>大学での研究・成果物のポートフォリオ。</p>
@@ -339,7 +336,6 @@
             updateDisplay();
         });
 
-        // 強制ジャンプ処理（干渉対策）
         document.getElementById('photoCard').addEventListener('click', () => {
             window.location.href = 'photo/index.html';
         });
