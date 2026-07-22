@@ -78,37 +78,31 @@
             color: #ffffff;
         }
 
-        /* 🏛️ メイン展示ステージ（重なり完全防止版） */
+        /* 🏛️ メイン展示ステージ */
         .exhibition-stage {
             width: 100%;
-            max-width: 1400px; /* 横写真の逃げ道を作るために少し広げます */
+            max-width: 1400px;
             min-height: 75vh;
             display: flex !important;
             align-items: center;
-            /* 👇 左右端に寄せるのではなく、中央寄せにして要素同士を並べます */
             justify-content: center;
-            gap: 5rem; /* アワードと写真の間の「絶対に維持する最低限の余白」 */
+            gap: 5rem;
             position: relative;
             padding: 2rem 4rem;
             box-sizing: border-box;
         }
 
-        /* 🏆 左サイド：受賞経歴エリア（absoluteを廃止して衝突を回避） */
+        /* 🏆 左サイド：受賞経歴エリア */
         .awards-panel {
-            /* ❌ position: absolute;  ←これを完全に削除 */
-            /* ❌ top: 2rem;           ←これも完全に削除 */
-            /* ❌ left: 3rem;          ←これも完全に削除 */
-            
             width: 350px;
             display: flex;
             flex-direction: column;
             opacity: 0.9;
             z-index: 5;
             box-sizing: border-box;
-            flex-shrink: 0; /* 👈 写真に押されても、アワード側の幅が絶対に潰れないようにするお守り */
+            flex-shrink: 0;
         }
 
-        /* 🏆 見出し（Selected Awardsを絶対に1行で収める） */
         .awards-title {
             font-size: 0.85rem;
             font-weight: 400;
@@ -119,49 +113,34 @@
             padding-bottom: 0.8rem;
             margin-bottom: 1.2rem;
             width: 100%;
-            white-space: nowrap; /* 👈 絶対に折り返さないお守り */
+            white-space: nowrap;
         }
 
-        /* 📜 経歴リストだけをスクロールさせる箱（字漏れ・潰れ対策版） */
         .awards-scroll-box {
-            height: 65vh; /* 写真の枠と同じ高さにしっかり固定 */
+            height: 65vh;
             overflow-y: auto;
             padding-right: 15px;
             display: flex;
             flex-direction: column;
-            gap: 1.3rem; /* 見やすさを保つ適度な行間 */
+            gap: 1.3rem;
             box-sizing: border-box;
-            /* 👇 ここから追加：上の線と同じ色・太さの下線を入れる */
             border-bottom: 1px solid rgba(255, 255, 255, 0.15); 
-            padding-bottom: 1rem; /* 線と文字の間に品のある余白を確保 */
+            padding-bottom: 1rem;
         }
 
-        /* ✨ 極細スクロールバー */
-        .awards-scroll-box::-webkit-scrollbar {
-            width: 4px;
-        }
-        .awards-scroll-box::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 10px;
-        }
-        .awards-scroll-box::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 10px;
-        }
-        .awards-scroll-box::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
+        .awards-scroll-box::-webkit-scrollbar { width: 4px; }
+        .awards-scroll-box::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.02); border-radius: 10px; }
+        .awards-scroll-box::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 10px; }
+        .awards-scroll-box::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.3); }
 
-        /* 🏆 受賞経歴の各項目 */
         .award-item {
             font-size: 0.8rem;
             line-height: 1.5;
             letter-spacing: 1px;
             color: #8c8c96;
-            flex-shrink: 0; /* 👈 縦に潰れて消えるのを絶対に防ぐ設定 */
+            flex-shrink: 0;
         }
 
-        /* 🏆 受賞した「賞の名前」 */
         .award-item strong {
             display: block;
             font-size: 0.85rem;
@@ -171,7 +150,6 @@
             margin-top: 0.2rem;
         }
 
-        /* 🏆 受賞日付（ゴールド） */
         .award-date {
             font-size: 0.7rem;
             font-weight: 300;
@@ -181,7 +159,7 @@
             margin-bottom: 0.1rem;
         }
 
-        /* 🖼️ 中央：展示エリア（完全なる画面のド真ん中） */
+        /* 🖼️ 中央：展示エリア */
         .exhibition-space {
             width: 100%;
             display: flex !important;
@@ -214,7 +192,6 @@
             transform: scale(1);
         }
 
-        /* 美術館風キャプション */
         .caption-plate {
             margin-top: 1.5rem;
             text-align: center;
@@ -223,9 +200,7 @@
             transition: opacity 0.6s ease;
         }
         
-        .caption-plate.active {
-            opacity: 1;
-        }
+        .caption-plate.active { opacity: 1; }
 
         .photo-title {
             font-size: 0.95rem;
@@ -240,7 +215,6 @@
             color: #666;
         }
 
-        /* 👇 スクロールを促すサイン */
         .scroll-hint {
             color: #444;
             font-size: 0.8rem;
@@ -299,6 +273,29 @@
         .gallery-item:hover img {
             transform: scale(1.06);
             filter: brightness(1.1);
+        }
+
+        /* ✍️ 自動サインフィルター（スタイル追加） */
+        .watermark-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .watermark-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background-image: url('signature.png'); /* 準備したサイン画像のファイル名 */
+            background-repeat: no-repeat;
+            background-position: right 15px bottom 15px; /* 右下に配置 */
+            background-size: 100px auto; /* サインの横幅 */
+            opacity: 0.6; /* 透過度 */
+            z-index: 5;
         }
 
         /* 🔍 拡大大画面（ライトボックス） */
@@ -409,7 +406,6 @@
         <div class="awards-panel">
             <div class="awards-title">Selected Awards</div>
             
-            <!-- 📜 スクロールボックスの中に受賞項目が漏れなくすべて格納されます -->
             <div class="awards-scroll-box">
                 <div class="award-item">
                     <div class="award-date">2019.09</div>
@@ -438,7 +434,7 @@
             </div>
         </div>
 
-        <!-- 🖼️ 中央：展示スペース（常に画面の完全なド真ん中） -->
+        <!-- 🖼️ 中央：展示スペース -->
         <div class="exhibition-space">
             <div class="photo-frame">
                 <img id="mainExhibImg" src="" alt="Main Exhibition">
@@ -486,8 +482,8 @@
             <img src="視線の先に.jpg" alt="作品7">
         </div>
         
-        <div class="gallery-item" data-category="color" data-title="" data-meta="20?? / ??? / Canon EOS 70D">
-            <img src=".jpg" alt="作品8">
+        <div class="gallery-item" data-category="color" data-title="作品8" data-meta="2024 / Nara / Canon EOS 70D">
+            <img src="作品8.jpg" alt="作品8">
         </div>
         
         <div class="gallery-item" data-category="color" data-title="凛" data-meta="2020 / Nara / Nikon D90">
@@ -551,7 +547,6 @@
                 const filterValue = button.getAttribute('data-filter');
                 let filteredItems = [];
 
-                // ALLタブの時だけ見出しごと丸ごと表示、他タブでは完全非表示（競合解消版）
                 if (filterValue === 'all') {
                     awardsPanel.style.display = 'flex';
                 } else {
@@ -593,6 +588,23 @@
         });
 
         setRandomMainPhoto(galleryItems);
+
+        /* ✍️ 自動で全写真にサインオーバーレイを差し込むJS */
+        document.addEventListener('DOMContentLoaded', () => {
+            const gridImages = document.querySelectorAll('.gallery-item img');
+
+            gridImages.forEach(img => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'watermark-wrapper';
+
+                const watermark = document.createElement('div');
+                watermark.className = 'watermark-overlay';
+
+                img.parentNode.insertBefore(wrapper, img);
+                wrapper.appendChild(img);
+                wrapper.appendChild(watermark);
+            });
+        });
     </script>
 </body>
 </html>
