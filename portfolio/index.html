@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio Hub</title>
     <style>
-        /* 全体の基本設定 */
+        /* ==========================================
+           💻 PC（大画面・フル画面）用スタイル
+           ========================================== */
         body {
             margin: 0;
             padding: 0;
@@ -24,7 +26,6 @@
             position: relative;
         }
 
-        /* 暗めマスク */
         body::before {
             content: '';
             position: absolute;
@@ -33,7 +34,7 @@
             z-index: 1;
         }
 
-        /* 💻 PC版ヘッダー：画面の一番上にピッタリ固定 */
+        /* PCヘッダー：しっかり大きく見やすく */
         .header-profile {
             position: fixed;
             top: 0;
@@ -42,30 +43,29 @@
             box-sizing: border-box;
             z-index: 100;
             display: flex;
-            flex-direction: row; /* 横並び固定 */
+            flex-direction: row;
             align-items: flex-start;
             justify-content: space-between; 
             gap: 2rem;
             background: rgba(18, 18, 20, 0.85);
-            padding: 1rem 3rem;
+            padding: 1.2rem 3rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
         }
 
-        /* PC版：経歴（左側） */
+        /* PC用 経歴文（大きめの視認性） */
         .profile-bio {
-            font-size: 0.76rem;
+            font-size: 0.82rem;
             color: #ccc;
             letter-spacing: 0.5px;
-            line-height: 1.5;
+            line-height: 1.6;
             flex-grow: 1; 
-            max-width: 600px;
+            max-width: 650px;
             text-align: left;
             margin-top: 0.2rem;
         }
 
-        /* PC版：アイコンと名前（右側） */
         .profile-right {
             display: flex;
             flex-direction: column;
@@ -75,8 +75,8 @@
         }
 
         .profile-img {
-            width: 60px;
-            height: 60px;
+            width: 65px;
+            height: 65px;
             border-radius: 12px;
             object-fit: cover;
             border: 2px solid rgba(255, 255, 255, 0.6);
@@ -84,22 +84,22 @@
         }
 
         .profile-name {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: bold;
             letter-spacing: 2px;
             color: #ffffff;
             white-space: nowrap;
         }
 
-        /* タイトル・スライダー周り */
+        /* PC用 タイトル周り */
         h1, .subtitle, .slider-container {
             position: relative;
             z-index: 2;
         }
 
         h1 {
-            font-size: 2.2rem;
-            margin-top: 80px; /* ヘッダーの高さ分だけ避ける */
+            font-size: 2.4rem; /* PC大画面で堂々としたサイズ */
+            margin-top: 90px;
             margin-bottom: 0.5rem;
             letter-spacing: 4px;
             text-align: center;
@@ -108,11 +108,12 @@
         .subtitle {
             color: #ccc;
             margin-bottom: 2.5rem;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             letter-spacing: 2px;
             text-align: center;
         }
 
+        /* PC用 スライダー＆カード */
         .slider-container {
             position: relative;
             width: 100%;
@@ -155,15 +156,15 @@
         }
 
         .card h2 {
-            font-size: 1.8rem;
+            font-size: 2rem; /* PC用 PHOTO/IT タイトル */
             margin-bottom: 1rem;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
 
         .card p {
-            color: #888;
-            font-size: 0.95rem;
+            color: #ccc;
+            font-size: 1rem; /* PC用 説明文 */
             line-height: 1.6;
             margin: 0;
             max-width: 85%;
@@ -193,7 +194,10 @@
         .next-btn { right: -70px; }
 
 
-        /* 📱 スマホ専用スタイル：全体的にフォントを1サイズダウン */
+        /* ==========================================
+           📱 スマホ（幅768px以下）用スタイル
+           ※Boxサイズは据え置きで文字だけ小さく！
+           ========================================== */
         @media (max-width: 768px) {
             body {
                 justify-content: flex-start;
@@ -204,71 +208,65 @@
                 position: relative;
                 flex-direction: column-reverse;
                 align-items: center;
-                padding: 0.6rem;
+                padding: 0.8rem;
                 margin-bottom: 0.5rem;
-                gap: 0.4rem;
+                gap: 0.5rem;
                 background: rgba(0, 0, 0, 0.4);
                 border-radius: 12px;
             }
 
             .profile-right {
                 flex-direction: row;
-                gap: 0.6rem;
+                gap: 0.8rem;
             }
 
             .profile-img {
-                width: 38px;
-                height: 38px;
+                width: 42px;
+                height: 42px;
             }
 
-            /* 名前：1.1rem ➔ 0.85rem に小さく */
+            /* スマホ用フォント縮小指定 */
             .profile-name {
                 font-size: 0.85rem;
             }
 
-            /* 経歴文：0.65rem ➔ 0.58rem に極小化してコンパクトに */
             .profile-bio {
-                font-size: 0.55rem;
-                line-height: 1.3;
+                font-size: 0.58rem;
+                line-height: 1.35;
                 text-align: center;
             }
 
-            /* タイトル：1.3rem ➔ 1.1rem */
             h1 {
-                font-size: 1.1rem;
-                margin-top: 0.3rem;
+                font-size: 1.2rem;
+                margin-top: 0.5rem;
                 margin-bottom: 0.1rem;
             }
 
-            /* サブタイトル：0.7rem ➔ 0.6rem */
             .subtitle {
-                font-size: 0.6rem;
-                margin-bottom: 0.6rem;
+                font-size: 0.65rem;
+                margin-bottom: 0.8rem;
             }
 
-            /* スライダーコンテナ */
             .slider-container {
                 width: 85%;
-                height: 180px;
+                height: 200px; /* ボックスサイズはそのまま維持 */
             }
 
             .card {
-                padding: 0.8rem;
+                padding: 1rem;
             }
 
-            /* カード内のPHOTO/IT見出し：1.4rem ➔ 1.1rem */
             .card h2 {
-                font-size: 1.1rem;
-                margin-bottom: 0.3rem;
+                font-size: 1.2rem;
+                margin-bottom: 0.4rem;
             }
 
-            /* カード内の説明文：0.75rem ➔ 0.65rem */
             .card p {
-                font-size: 0.65rem;
+                font-size: 0.7rem;
             }
 
-            .prev-btn { left: -8px; width: 32px; height: 32px; font-size: 0.9rem; }
-            .next-btn { right: -8px; width: 32px; height: 32px; font-size: 0.9rem; }
+            .prev-btn { left: -8px; width: 34px; height: 34px; font-size: 1rem; }
+            .next-btn { right: -8px; width: 34px; height: 34px; font-size: 1rem; }
         }
     </style>
 </head>
@@ -277,8 +275,8 @@
     <!-- プロフィールエリア -->
     <div class="header-profile">
         <div class="profile-bio">
-            大学時代はシステムデザイン工学を専攻し知能情報処理研究室にてAIを研究。<br>高校時代より写真活動を続けており、最近ではアクアリウムも始めた自然好き。<br><br>
-            このサイトではこれまでに撮影してきた写真作品と、<br>ITシステムやアプリの開発実績の2つの世界を公開しています。<br>詳しい経歴はそれぞれのポートフォリオ内をご覧ください。
+            某上場企業にてFSEとして勤務。大学時代はシステムデザイン工学を専攻し知能情報処理研究室にてAIを研究。高校時代より写真活動を続けており、最近ではアクアリウムも始めた自然好き。<br>
+            このサイトではこれまでに撮影してきた写真作品と、ITシステムやアプリの開発実績の2つの世界を公開しています。詳しい経歴はそれぞれのポートフォリオ内をご覧ください。
         </div>
         
         <div class="profile-right">
