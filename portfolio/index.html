@@ -5,20 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio Hub</title>
     <style>
-        /* ヘッダープロフィール全体のレイアウト */
+        /* 画面全体の基本スタイル */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start; /* 上から順番にバランスよく配置 */
+            min-height: 100vh;
+            box-sizing: border-box;
+            background-size: cover;
+            background-position: center;
+            transition: background-image 0.8s ease-in-out; 
+            position: relative;
+        }
+
+        /* 背景マスク */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(15, 15, 17, 0.4);
+            z-index: 1;
+        }
+
+        /* PCヘッダー（最上部にピタッと固定） */
         .header-profile {
-            position: fixed; /* 画面の一番上にしっかり固定 */
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             box-sizing: border-box;
-            z-index: 100;
+            z-index: 10;
             display: flex;
             align-items: center;
             justify-content: space-between; 
             gap: 2rem;
-            background: rgba(18, 18, 20, 0.85); /* スマホでも背景が見やすい暗めガラス */
-            padding: 1rem 2rem;
+            background: rgba(18, 18, 20, 0.85);
+            padding: 1rem 3rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
@@ -26,7 +54,7 @@
 
         /* 左側：経歴エリア */
         .profile-bio {
-            font-size: 0.78rem;
+            font-size: 0.76rem;
             color: #ccc;
             letter-spacing: 0.5px;
             line-height: 1.5;
@@ -61,41 +89,15 @@
             white-space: nowrap;
         }
 
-        /* 全体のデザイン調整 */
-        body {
-            margin: 0;
-            padding: 140px 0 40px 0; /* ヘッダーに被らないよう上に大きめの余白を作る */
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            background-color: #121212;
-            color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            box-sizing: border-box;
-            background-size: cover;
-            background-position: center;
-            transition: background-image 0.8s ease-in-out; 
-            position: relative;
-        }
-
-        /* 背景が明るいときでも文字が見えるように暗いマスクをかける */
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(15, 15, 17, 0.5);
-            z-index: 1;
-        }
-
+        /* メインコンテンツ（タイトル・スライダー） */
         h1, .subtitle, .slider-container {
             position: relative;
             z-index: 2;
         }
 
         h1 {
-            font-size: 2rem;
+            font-size: 2.2rem;
+            margin-top: 140px; /* ヘッダーの直下に収まるよう位置調整 */
             margin-bottom: 0.5rem;
             letter-spacing: 4px;
             text-align: center;
@@ -190,26 +192,27 @@
         .prev-btn { left: -60px; }
         .next-btn { right: -60px; }
 
-        /* 📱 スマホ対応：1画面にすっきり納める究極調整 */
+        /* 📱 スマホ対応：1画面にコンパクトに納める調整 */
         @media (max-width: 768px) {
             body {
-                padding-top: 10px;
-                padding-bottom: 10px;
-                justify-content: center;
+                padding: 10px;
+                justify-content: flex-start;
             }
 
             .header-profile {
                 position: relative;
-                flex-direction: column-reverse; /* アイコンを上、自己紹介を下に */
+                top: 0;
+                flex-direction: column-reverse;
                 align-items: center;
-                padding: 0.8rem 1rem;
-                margin-bottom: 0.8rem;
+                padding: 0.8rem;
+                margin-bottom: 0.5rem;
                 gap: 0.5rem;
-                background: rgba(0, 0, 0, 0.3);
+                background: rgba(0, 0, 0, 0.4);
+                border-radius: 12px;
             }
 
             .profile-right {
-                flex-direction: row; /* スマホではアイコンと名前を横並びに */
+                flex-direction: row;
                 gap: 0.8rem;
             }
 
@@ -223,14 +226,14 @@
             }
 
             .profile-bio {
-                font-size: 0.65rem; /* スマホ用にギュッと極小化 */
-                line-height: 1.3;
-                text-align: center; /* 中央揃えで整える */
+                font-size: 0.65rem;
+                line-height: 1.35;
+                text-align: center;
             }
 
-            /* タイトルサイズを最小化 */
             h1 {
-                font-size: 1.2rem;
+                font-size: 1.3rem;
+                margin-top: 0.5rem;
                 margin-bottom: 0.1rem;
             }
 
@@ -239,10 +242,9 @@
                 margin-bottom: 0.8rem;
             }
 
-            /* カードの高さを短くして画面内にねじ込む */
             .slider-container {
                 width: 85%;
-                height: 190px;
+                height: 200px;
             }
 
             .card {
@@ -266,7 +268,7 @@
 </head>
 <body>
 
-    <!-- プロフィールエリア（無駄な改行をカットしてスッキリ化） -->
+    <!-- プロフィールエリア -->
     <div class="header-profile">
         <div class="profile-bio">
             某上場企業にてFSEとして勤務。大学時代はシステムデザイン工学を専攻し知能情報処理研究室にてAIを研究。高校時代より写真活動を続けており、最近ではアクアリウムも始めた自然好き。<br>
