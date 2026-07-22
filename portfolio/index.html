@@ -190,28 +190,61 @@
         .prev-btn { left: -60px; }
         .next-btn { right: -60px; }
 
-        /* 📱 スマホ対応（画面幅768px以下） */
+        /* 📱 スマホ対応：プロフィールをコンパクトにしてカードを画面内に収める */
         @media (max-width: 768px) {
             body {
-                padding-top: 20px; /* スマホではスクロール前提にする */
-                justify-content: flex-start;
+                padding-top: 10px;
+                justify-content: center; /* 画面中央にキュッと寄せる */
             }
 
             .header-profile {
-                position: relative; /* スマホでは一番上に普通に並べる */
-                flex-direction: column-reverse; /* アイコンを上、文章を下に */
-                text-align: center;
-                padding: 1.5rem 1rem;
-                margin-bottom: 2rem;
+                position: relative;
+                flex-direction: row; /* スマホでも左右横並びをキープ！ */
+                align-items: center;
+                padding: 0.8rem 1rem; /* 上下の無駄な余白をカット */
+                margin-bottom: 1rem;
+                gap: 1rem;
             }
 
             .profile-bio {
-                text-align: center;
-                font-size: 0.8rem;
+                font-size: 0.68rem; /* 文字サイズを小さく！ */
+                line-height: 1.35;  /* 行間を詰める */
+                text-align: left;
             }
 
-            .prev-btn { left: -10px; }
-            .next-btn { right: -10px; }
+            .profile-right {
+                gap: 0.3rem;
+            }
+
+            .profile-img {
+                width: 48px;  /* アイコンを少し小さく */
+                height: 48px;
+            }
+
+            .profile-name {
+                font-size: 0.95rem; /* 名前もコンパクトに */
+            }
+
+            /* PORTFOLIO タイトル周りもキュッと小さく */
+            h1 {
+                font-size: 1.4rem;
+                margin-bottom: 0.2rem;
+            }
+
+            .subtitle {
+                font-size: 0.75rem;
+                margin-bottom: 1rem;
+            }
+
+            /* カードとボタン */
+            .slider-container {
+                width: 90%;
+                height: 240px; /* カードの高さもスマートに */
+            }
+
+            .prev-btn { left: -5px; }
+            .next-btn { right: -5px; }
+            .slide-btn { width: 36px; height: 36px; font-size: 1.2rem; }
         }
     </style>
 </head>
