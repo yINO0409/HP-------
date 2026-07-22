@@ -311,6 +311,41 @@
         }
 
         }
+
+        /* 写真カードの枠組み */
+        .photo-card {
+            position: relative;
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            display: inline-block;
+            -webkit-user-drag: none;
+            user-select: none;
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* サイン画像フィルター */
+        .watermark-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background-image: url('signature.png'); /* サイン画像のパス */
+            background-repeat: no-repeat;
+            background-position: right 15px bottom 15px; /* 右下に配置 */
+            background-size: 120px auto; /* サインの横幅 */
+            opacity: 0.6; /* 薄さ */
+        }
+
+        
     </style>
 </head>
 <body>
@@ -389,5 +424,28 @@
             window.location.href = 'photo/index.html';
         });
     </script>
+
+    // ページ内のすべての写真を取得して自動でサインを被せる
+    document.addEventListener('DOMContentLoaded', () => {
+        // 写真画像（または .gallery-photo など）をすべて取得
+        const images = document.querySelectorAll('.gallery-photo'); 
+
+        images.forEach(img => {
+            // 親要素（photo-card）を生成
+            const wrapper = document.createElement('div');
+            wrapper.className = 'photo-card';
+
+            // サイン用レイヤーを生成
+            const watermark = document.createElement('div');
+            watermark.className = 'watermark-overlay';
+
+            // DOM構造を組み立てて入れ替える
+            img.parentNode.insertBefore(wrapper, img);
+            wrapper.appendChild(img);
+            wrapper.appendChild(watermark);
+        });
+    });
+
+
 </body>
 </html>
