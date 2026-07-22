@@ -190,75 +190,87 @@
         .prev-btn { left: -60px; }
         .next-btn { right: -60px; }
 
-        /* 📱 スマホ対応：プロフィールをコンパクトにしてカードを画面内に収める */
+        /* 📱 スマホ対応：1画面にすっきり納める究極調整 */
         @media (max-width: 768px) {
             body {
                 padding-top: 10px;
-                justify-content: center; /* 画面中央にキュッと寄せる */
+                padding-bottom: 10px;
+                justify-content: center;
             }
 
             .header-profile {
                 position: relative;
-                flex-direction: row; /* スマホでも左右横並びをキープ！ */
+                flex-direction: column-reverse; /* アイコンを上、自己紹介を下に */
                 align-items: center;
-                padding: 0.8rem 1rem; /* 上下の無駄な余白をカット */
-                margin-bottom: 1rem;
-                gap: 1rem;
-            }
-
-            .profile-bio {
-                font-size: 0.68rem; /* 文字サイズを小さく！ */
-                line-height: 1.35;  /* 行間を詰める */
-                text-align: left;
+                padding: 0.8rem 1rem;
+                margin-bottom: 0.8rem;
+                gap: 0.5rem;
+                background: rgba(0, 0, 0, 0.3);
             }
 
             .profile-right {
-                gap: 0.3rem;
+                flex-direction: row; /* スマホではアイコンと名前を横並びに */
+                gap: 0.8rem;
             }
 
             .profile-img {
-                width: 48px;  /* アイコンを少し小さく */
-                height: 48px;
+                width: 42px;
+                height: 42px;
             }
 
             .profile-name {
-                font-size: 0.95rem; /* 名前もコンパクトに */
+                font-size: 1.1rem;
             }
 
-            /* PORTFOLIO タイトル周りもキュッと小さく */
+            .profile-bio {
+                font-size: 0.65rem; /* スマホ用にギュッと極小化 */
+                line-height: 1.3;
+                text-align: center; /* 中央揃えで整える */
+            }
+
+            /* タイトルサイズを最小化 */
             h1 {
-                font-size: 1.4rem;
-                margin-bottom: 0.2rem;
+                font-size: 1.2rem;
+                margin-bottom: 0.1rem;
             }
 
             .subtitle {
-                font-size: 0.75rem;
-                margin-bottom: 1rem;
+                font-size: 0.7rem;
+                margin-bottom: 0.8rem;
             }
 
-            /* カードとボタン */
+            /* カードの高さを短くして画面内にねじ込む */
             .slider-container {
-                width: 90%;
-                height: 240px; /* カードの高さもスマートに */
+                width: 85%;
+                height: 190px;
             }
 
-            .prev-btn { left: -5px; }
-            .next-btn { right: -5px; }
-            .slide-btn { width: 36px; height: 36px; font-size: 1.2rem; }
+            .card {
+                padding: 1rem;
+            }
+
+            .card h2 {
+                font-size: 1.4rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .card p {
+                font-size: 0.75rem;
+            }
+
+            .prev-btn { left: -8px; }
+            .next-btn { right: -8px; }
+            .slide-btn { width: 34px; height: 34px; font-size: 1rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- プロフィールエリア -->
+    <!-- プロフィールエリア（無駄な改行をカットしてスッキリ化） -->
     <div class="header-profile">
         <div class="profile-bio">
-            某上場企業にてFSEとして勤務。<br>
-            大学時代はシステムデザイン工学を専攻し知能情報処理研究室にてAIを研究。<br>
-            高校時代より写真活動を続けており、最近ではアクアリウムも始めた自然好き。<br><br>
-            このサイトではこれまでに撮影してきた写真作品と、<br>
-            ITシステムやアプリの開発実績の2つの世界を公開しています。<br>
-            詳しい経歴はそれぞれのポートフォリオ内をご覧ください。
+            某上場企業にてFSEとして勤務。大学時代はシステムデザイン工学を専攻し知能情報処理研究室にてAIを研究。高校時代より写真活動を続けており、最近ではアクアリウムも始めた自然好き。<br>
+            このサイトではこれまでに撮影してきた写真作品と、ITシステムやアプリの開発実績の2つの世界を公開しています。詳しい経歴はそれぞれのポートフォリオ内をご覧ください。
         </div>
         
         <div class="profile-right">
@@ -276,7 +288,7 @@
         <button class="slide-btn prev-btn" id="prevBtn">&#10094;</button>
         <button class="slide-btn next-btn" id="nextBtn">&#10095;</button>
 
-        <!-- 📷 写真ポートフォリオ （スラッシュを「/」に修正） -->
+        <!-- 📷 写真ポートフォリオ -->
         <a href="photo/index.html" id="photoCard" class="card active">
             <h2>PHOTO</h2>
             <p>学生時代から続く写真作品のポートフォリオ。</p>
