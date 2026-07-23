@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio Hub</title>
     <style>
-        /* ==========================================
-           💻 PC（大画面・フル画面）用スタイル
-           ========================================== */
+        /*PC（大画面・フル画面）用スタイル*/
         body {
             margin: 0;
             padding: 0;
@@ -34,30 +32,30 @@
             z-index: 1;
         }
 
-        /* 💻 PCヘッダー：最大幅を絞って中央寄りに配置 */
+        /*PCヘッダー：最大幅を絞って中央寄りに配置*/
         .header-profile {
             position: fixed;
             top: 0;
             left: 0;
-            right: 0; /* 左右を 0 にして中央配置できるようにする */
-            max-width: 1100px; /* 👈 ここでヘッダー全体の最大幅を制限（お好みで調整OK） */
-            margin: 0 auto;    /* 👈 画面の中央に配置 */
+            right: 0; /*左右を0にして中央配置*/
+            max-width: 1100px; /*ヘッダー全体の最大幅を制限*/
+            margin: 0 auto;    /*画面の中央に配置*/
             box-sizing: border-box;
             z-index: 100;
             display: flex;
             flex-direction: row;
-            align-items: center; /* 👈 上下も中央揃えにするとより綺麗に見えます */
+            align-items: center; /*上下中央揃え*/
             justify-content: space-between; 
             gap: 2rem;
             background: rgba(18, 18, 20, 0.85);
             padding: 1rem 2rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 0 0 16px 16px; /* 👈 角を少し丸くするとモダンでおしゃれになります（不要なら消してOK） */
+            border-radius: 0 0 16px 16px; /*角を少し丸くする*/
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
         }
 
-        /* PC用 経歴文（大きめの視認性） */
+        /*PC用経歴文*/
         .profile-bio {
             font-size: 0.82rem;
             color: #ccc;
@@ -94,14 +92,14 @@
             white-space: nowrap;
         }
 
-        /* PC用 タイトル周り */
+        /*PC用タイトル周り*/
         h1, .subtitle, .slider-container {
             position: relative;
             z-index: 2;
         }
 
         h1 {
-            font-size: 2.4rem; /* PC大画面で堂々としたサイズ */
+            font-size: 2.4rem;
             margin-top: 90px;
             margin-bottom: 0.5rem;
             letter-spacing: 4px;
@@ -116,7 +114,7 @@
             text-align: center;
         }
 
-        /* PC用 スライダー＆カード */
+        /*PC用スライダー＆カード*/
         .slider-container {
             position: relative;
             width: 100%;
@@ -197,10 +195,7 @@
         .next-btn { right: -70px; }
 
 
-        /* ==========================================
-           📱 スマホ（幅768px以下）用スタイル
-           ※Boxサイズは据え置きで文字だけ小さく！
-           ========================================== */
+        /*スマホ（幅768px以下）用スタイル*/
         @media (max-width: 768px) {
             body {
                 justify-content: flex-start;
@@ -228,7 +223,7 @@
                 height: 60px;
             }
 
-            /* スマホ用フォント縮小指定 */
+            /*スマホ用フォント縮小指定*/
             .profile-name {
                 font-size: 0.85rem;
             }
@@ -252,7 +247,7 @@
 
             .slider-container {
                 width: 85%;
-                height: 200px; /* ボックスサイズはそのまま維持 */
+                height: 200px;
             }
 
             .card {
@@ -271,20 +266,20 @@
             .prev-btn { left: -8px; width: 34px; height: 34px; font-size: 1rem; }
             .next-btn { right: -8px; width: 34px; height: 34px; font-size: 1rem; }
 
-            /* 🔒 ロックされたカード（クリック無効化） */
+            /*カードをロック（クリック無効化）*/
         .card.locked {
             pointer-events: none !important; /* タップ・クリックを禁止 */
             cursor: not-allowed;
         }
 
-        /* COMING SOON ラベル（後ろの文字が見える透過デザイン） */
+        /*COMING SOON ラベル（後ろの文字が見える透過デザイン）*/
         .coming-soon-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            /* 1. 全体にかかる黒マスクをかなり薄く（0.7 → 0.255） */
+            /*全体にかかる黒マスク*/
             background: rgba(0, 0, 0, 0.25);
             border-radius: 16px;
             display: flex;
@@ -293,26 +288,26 @@
             z-index: 10;
         }
 
-        /* 文字の後ろに斜め帯（リボン）をつけてスタイリッシュに目立たせる */
+        /*文字の後ろに斜め帯*/
         .coming-soon-overlay::before {
             content: 'COMING SOON';
             position: absolute;
-            width: 120%; /* カード幅より少し大きくして斜めに伸ばす */
-            background: rgba(220, 38, 38, 0.55); /* 高級感のあるスモーキーレッド帯 */
+            width: 120%; /*カード幅より少し大きくし斜めに伸ばす*/
+            background: rgba(220, 38, 38, 0.55);
             color: #ffffff;
             font-size: 1.1rem;
             font-weight: bold;
             letter-spacing: 3px;
             text-align: center;
             padding: 0.5rem 0;
-            transform: rotate(-12deg); /* 斜め12度に傾ける */
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* 帯の影 */
+            transform: rotate(-12deg); /*斜めに傾ける*/
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /*帯の影*/
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         }
 
-        /* 写真カードの枠組み */
+        /*写真カードの枠組み*/
         .photo-card {
             position: relative;
             width: 100%;
@@ -329,12 +324,12 @@
             object-fit: cover;
             display: block;
         }
-        
+
     </style>
 </head>
 <body>
 
-    <!-- プロフィールエリア -->
+    //プロフィールエリア
     <div class="header-profile">
         <div class="profile-bio">
             大学時代はシステムデザイン工学を専攻し知能情報処理研究室にてAIを研究。<br>高校時代より写真活動を続けており、最近ではアクアリウムも始めた自然好き。<br><br>
@@ -347,11 +342,11 @@
         </div>
     </div>
 
-    <!-- 題名 -->
+    //題名
     <h1>PORTFOLIO</h1>
     <div class="subtitle">Select the portfolio you want to view</div>
 
-    <!-- スライダー -->
+    //スライダー
     <div class="slider-container">
         <button class="slide-btn prev-btn" id="prevBtn">&#10094;</button>
         <button class="slide-btn next-btn" id="nextBtn">&#10095;</button>
@@ -368,7 +363,7 @@
         </a>
     </div>
 
-    <!-- JavaScript -->
+
     <script>
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');

@@ -219,14 +219,14 @@
             reader.readAsDataURL(file);
         });
 
-        /* 💡 リセット用の関数を追加 */
+        /*リセット用の関数を追加*/
         function resetToDefaultBg() {
             localStorage.removeItem('myCockpitBg'); /* 保存された記憶を削除 */
             document.body.style.backgroundImage = 'url("背景.jpg")'; /* デフォルト背景を表示 */
             toggleMenu();
         }
 
-        /* 💡 自動読み込みの判定を変更 */
+        /*自動読み込みの判定を変更*/
         window.addEventListener('DOMContentLoaded', () => {
             const savedBg = localStorage.getItem('myCockpitBg');
             /* 変更前: if (savedBg) { ... } */

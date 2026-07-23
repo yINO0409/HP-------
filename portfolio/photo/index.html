@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Photography Portfolio</title>
     <style>
-        /* 🎨 漆黒の美術館をイメージしたベース */
+        /*美術館をイメージしたベース*/
         body {
             margin: 0;
             padding: 0;
-            background-color: #060608; /* 静寂の黒 */
+            background-color: #060608;
             color: #ffffff;
             font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', sans-serif;
             min-height: 100vh;
@@ -19,7 +19,7 @@
             box-sizing: border-box;
         }
 
-        /* 戻るボタン */
+        /*戻るボタン*/
         .back-to-hub {
             position: absolute;
             top: 2.5rem;
@@ -34,7 +34,7 @@
         }
         .back-to-hub:hover { color: #fff; }
 
-        /* 🏛️ 上部：ヘッダー */
+        /*上部：ヘッダー*/
         header {
             text-align: center;
             padding-top: 2.5rem;
@@ -50,7 +50,7 @@
             color: #eee;
         }
 
-        /* 🎛️ カテゴリ切り替えスイッチ */
+        /*カテゴリ切り替えスイッチ*/
         .filter-container {
             display: flex;
             gap: 1rem;
@@ -78,7 +78,7 @@
             color: #ffffff;
         }
 
-        /* 🏛️ メイン展示ステージ */
+        /*メイン:展示ステージ*/
         .exhibition-stage {
             width: 100%;
             max-width: 1400px;
@@ -92,7 +92,7 @@
             box-sizing: border-box;
         }
 
-        /* 🏆 左サイド：受賞経歴エリア */
+        /*左サイド：受賞経歴エリア*/
         .awards-panel {
             width: 350px;
             display: flex;
@@ -159,7 +159,7 @@
             margin-bottom: 0.1rem;
         }
 
-        /* 🖼️ 中央：展示エリア */
+        /*中央：展示エリア*/
         .exhibition-space {
             width: 100%;
             display: flex !important;
@@ -228,7 +228,7 @@
             60% { transform: translateY(-3px); }
         }
 
-        /* 🏛️ 一覧（インデックス）エリア */
+        /*一覧（インデックス）エリア*/
         .list-section-title {
             font-size: 0.8rem;
             letter-spacing: 4px;
@@ -275,7 +275,7 @@
             filter: brightness(1.1);
         }
 
-        /* ✍️ 自動サインフィルター（一旦コメントアウト）
+        /*自動サインフィルター
         .watermark-wrapper {
             position: relative;
             width: 100%;
@@ -299,7 +299,7 @@
         }
         */
 
-        /* 🔍 拡大大画面（ライトボックス） */
+        /*拡大大画面（ライトボックス） */
         .lightbox {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -351,7 +351,7 @@
             transform: rotate(90deg);
         }
 
-        /* 📱 スマホ・タブレット対応 */
+        /*スマホ・タブレット対応*/
         @media (max-width: 1024px) {
             .exhibition-stage {
                 flex-direction: column !important;
@@ -388,7 +388,7 @@
 </head>
 <body>
 
-    <!-- 戻るボタン -->
+    //戻るボタン
     <a href="../" class="back-to-hub">&#10094; PORTFOLIO Hub</a>
 
     <header>
@@ -400,10 +400,10 @@
         </div>
     </header>
 
-    <!-- 🏛️ 1. メイン展示スペース -->
+    //メイン展示スペース
     <div class="exhibition-stage">
     
-        <!-- 🏆 左サイド：受賞経歴 -->
+        //左サイド：受賞経歴
         <div class="awards-panel">
             <div class="awards-title">Selected Awards</div>
             
@@ -435,7 +435,7 @@
             </div>
         </div>
 
-        <!-- 🖼️ 中央：展示スペース -->
+        //中央：展示スペース
         <div class="exhibition-space">
             <div class="photo-frame">
                 <img id="mainExhibImg" src="" alt="Main Exhibition">
@@ -453,7 +453,7 @@
 
     <div class="list-section-title">Index / Collection</div>
 
-    <!-- 🏛️ 2. 一覧（インデックス）ギャラリーエリア -->
+    //一覧 ギャラリーエリア
     <div class="gallery-grid" id="galleryGrid">
         <div class="gallery-item" data-category="color" data-title="東京駅" data-meta="2026 / Tokyo / Canon EOS 70D">
             <img src="東京駅.jpg" alt="作品1">
@@ -492,7 +492,7 @@
         </div>
     </div>
 
-    <!-- 🔍 3. 拡大大画面（ライトボックス） -->
+    //拡大大画面（ライトボックス）
     <div class="lightbox" id="lightbox">
         <button class="close-btn" id="closeBtn">&times;</button>
         <img src="" alt="Enlarged Photo">
@@ -536,7 +536,7 @@
             }, 200);
         }
 
-        // 🎛️ カテゴリ切り替え（フィルター）システム
+        //カテゴリ切り替えフィルター
         const filterButtons = document.querySelectorAll('.filter-btn');
         const awardsPanel = document.querySelector('.awards-panel');
 
@@ -590,7 +590,7 @@
 
         setRandomMainPhoto(galleryItems);
 
-        /* ✍️ 自動で全写真にサインオーバーレイを差し込むJS（一旦コメントアウト）
+        /*全写真にサインオーバーレイを差し込む
         document.addEventListener('DOMContentLoaded', () => {
             const gridImages = document.querySelectorAll('.gallery-item img');
 
